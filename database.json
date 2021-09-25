@@ -1,0 +1,31 @@
+{
+   "employees": [
+      {
+         "name": "Bhojraj only",
+         "user_type": "admin",
+         "years_of_experience": 3,
+         "joining_date": "2021-09-10",
+         "dob": "2001-06-09",
+         "age": 25,
+         "project_name": [
+            "abc",
+            "cyx"
+         ],
+         "skill_set": [
+            "python",
+            "HTML",
+            "JAVA"
+         ]
+      },
+      {
+         "name": "Ashish",
+         "user_type": "Employee",
+         "years_of_experience": null,
+         "joining_date": null,
+         "dob": null,
+         "age": null,
+         "project_name": null,
+         "skill_set": null
+      }
+   ]
+}
