@@ -26,6 +26,26 @@
          "age": null,
          "project_name": null,
          "skill_set": null
+      },
+      {
+         "name": "Ashvin",
+         "user_type": "Employee",
+         "years_of_experience": 9,
+         "joining_date": "05-26-2032",
+         "dob": "20-85-1685",
+         "age": 55,
+         "project_name": [
+            "Ecom",
+            "ERP",
+            "Website",
+            "Testing"
+         ],
+         "skill_set": [
+            "python",
+            "JAVA",
+            "PHp",
+            "HTML"
+         ]
       }
    ]
 }

@@ -61,5 +61,12 @@ if __name__ == "__main__":
         if n == 0:
             exit()
         elif n == 1:
-            emp1=Employee('Ashish')
+            name = input("Enter Name : ")
+            experience = int(input("Enter year of Experience : "))
+            doj = input("Date of Joining : ")
+            dob = input("Date of birth : ")
+            age = int(input("Enter age : "))
+            projects = input("Enter project names seperated by , : ").split(',')
+            skills = input("Enter skills Seperated by , : ").split(',')
+            emp1=Employee(name, experience, doj, dob ,age, projects, skills)
             localdb.add_emp(emp1)
