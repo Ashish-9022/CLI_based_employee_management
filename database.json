@@ -1,7 +1,8 @@
 {
    "employees": [
       {
-         "name": "Bhojraj only",
+         "emp_id": null,
+         "name": "Bhojraj Bharambe",
          "user_type": "admin",
          "years_of_experience": 3,
          "joining_date": "2021-09-10",
@@ -18,34 +19,15 @@
          ]
       },
       {
-         "name": "Ashish",
+         "emp_id": 2,
          "user_type": "Employee",
-         "years_of_experience": null,
-         "joining_date": null,
-         "dob": null,
-         "age": null,
-         "project_name": null,
-         "skill_set": null
-      },
-      {
-         "name": "Ashvin",
-         "user_type": "Employee",
-         "years_of_experience": 9,
-         "joining_date": "05-26-2032",
-         "dob": "20-85-1685",
-         "age": 55,
-         "project_name": [
-            "Ecom",
-            "ERP",
-            "Website",
-            "Testing"
-         ],
-         "skill_set": [
-            "python",
-            "JAVA",
-            "PHp",
-            "HTML"
-         ]
+         "name": "ashvin",
+         "years_of_experience": "99",
+         "joining_date": "99-99-9999",
+         "dob": "88-88-8888",
+         "age": "88",
+         "project_name": "xxx",
+         "skill_set": "yyy"
       }
    ]
 }
