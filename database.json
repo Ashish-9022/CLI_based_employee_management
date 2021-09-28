@@ -38,8 +38,8 @@
       },
       {
          "emp_id": 3,
-         "name": "pushkaraj",
          "user_type": "Employee",
+         "name": "Update Pushkraj",
          "years_of_experience": null,
          "joining_date": null,
          "dob": null,
@@ -50,6 +50,17 @@
       {
          "emp_id": 4,
          "name": "Ashvin",
+         "user_type": "Employee",
+         "years_of_experience": null,
+         "joining_date": null,
+         "dob": null,
+         "age": null,
+         "project_name": [],
+         "skill_set": []
+      },
+      {
+         "emp_id": 5,
+         "name": "Diraj",
          "user_type": "Employee",
          "years_of_experience": null,
          "joining_date": null,
