@@ -19,15 +19,44 @@
          ]
       },
       {
-         "emp_id": 2,
+         "emp_id": 1,
+         "name": "Ashish",
          "user_type": "Employee",
-         "name": "ashvin",
-         "years_of_experience": "99",
-         "joining_date": "99-99-9999",
-         "dob": "88-88-8888",
-         "age": "88",
-         "project_name": "xxx",
-         "skill_set": "yyy"
+         "years_of_experience": 1,
+         "joining_date": "22-10-2021",
+         "dob": "09-06-2001",
+         "age": 22,
+         "project_name": [
+            "EcomWebsite",
+            "AWS maintanance",
+            "Food app"
+         ],
+         "skill_set": [
+            "PYthon",
+            "Android"
+         ]
+      },
+      {
+         "emp_id": 3,
+         "name": "pushkaraj",
+         "user_type": "Employee",
+         "years_of_experience": null,
+         "joining_date": null,
+         "dob": null,
+         "age": null,
+         "project_name": [],
+         "skill_set": []
+      },
+      {
+         "emp_id": 4,
+         "name": "Ashvin",
+         "user_type": "Employee",
+         "years_of_experience": null,
+         "joining_date": null,
+         "dob": null,
+         "age": null,
+         "project_name": [],
+         "skill_set": []
       }
    ]
 }

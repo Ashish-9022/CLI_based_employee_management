@@ -1,5 +1,24 @@
 import json
 
+def set_none(value):
+    if value == "":
+        return None
+    else:
+        return value
+
+def convert_to_int(value):
+    if value == "":
+        return None
+    else:
+        return int(value)
+
+def create_list(value):
+    if value == "":
+        return []
+    else:
+        return value.split(",")
+
+
 
 class Employee:
     def __init__(self, emp_name=None, emp_experience=None,
@@ -19,7 +38,7 @@ class Employee:
         self.age = emp_age
         self.project_name = project_name
         self.skills = emp_skills
-        self.user_type = user_type
+        self.__user_type = user_type
         self.info_dict = {}
 
     def get_details(self):
@@ -43,11 +62,11 @@ class Employee:
         self.age = temp_dict['age']
         self.project_name = temp_dict['project_name']
         self.skills = temp_dict['skill_set']
-        self.user_type = temp_dict['user_type']
+        self.__user_type = temp_dict['user_type']
 
     def get_info_dict(self):
         self.info_dict['emp_id'] = self.emp_id
-        self.info_dict['user_type'] =self.user_type
+        self.info_dict['user_type'] =self.__user_type
         self.info_dict['name'] = self.name
         self.info_dict['years_of_experience'] = self.experience
         self.info_dict['joining_date'] = self.date_of_joining
@@ -64,11 +83,15 @@ class Database:
     def add_emp(self, employee):
         with open(self.filename, 'r') as f:
             data = json.load(f)
-        dict_len = len(data['employees'])
+        dict_len = data['employees'][-1]['emp_id']
+        if dict_len == None:
+            dict_len = 1
+        else:
+            dict_len += 1
         tempdict = {
-            'emp_id': dict_len+1,
+            'emp_id': dict_len,
             'name': employee.name,
-            'user_type': employee.user_type,
+            'user_type': "Employee",
             'years_of_experience': employee.experience,
             'joining_date': employee.date_of_joining,
             'dob': employee.date_of_birth,
@@ -102,6 +125,20 @@ class Database:
                 break
         return data['employees'][i]
 
+    def delete_emp(self,delete_emp_id):
+        with open(self.filename, 'r') as fr:
+            data = json.load(fr)
+        temp_list = []
+        for emp in data['employees']:
+            if emp['emp_id'] == delete_emp_id:
+                pass
+            else:
+                temp_list.append(emp)
+        temp_dict = {}
+        temp_dict['employees'] = temp_list
+        with open(self.filename, 'w') as fw:
+            json.dump(temp_dict, fw, indent=3)
+
 
 if __name__ == "__main__":
     localdb = Database("database.json")
@@ -118,19 +155,23 @@ if __name__ == "__main__":
     """
 
     while True:
-        n = int(input(operations))
+        try:
+            n = int(input(operations))
+        except:
+            continue
         if n == 0:
             exit()
         elif n == 1:
-            name = input("Enter Name : ")
-            experience = int(input("Enter year of Experience : "))
-            doj = input("Date of Joining : ")
-            dob = input("Date of birth : ")
-            age = int(input("Enter age : "))
-            projects = input("Enter project names seperated by , : ").split(',')
-            skills = input("Enter skills Seperated by , : ").split(',')
+            name = set_none(input("Enter Name : "))
+            experience = convert_to_int(input("Enter year of Experience : "))
+            doj = set_none(input("Date of Joining : "))
+            dob = set_none(input("Date of birth : "))
+            age = convert_to_int(input("Enter age : "))
+            projects = create_list(input("Enter project names seperated by , : "))
+            skills = create_list(input("Enter skills Seperated by , : "))
             emp1 = Employee(name, experience, doj, dob, age, projects, skills)
             localdb.add_emp(emp1)
+            print("\n Employee Added Successfully !")
         elif n == 2:
             update_empid = int(input("Enter Employess ID which has to be updated"))
             update_emp = Employee()
@@ -142,8 +183,28 @@ if __name__ == "__main__":
                     continue
                 choice=int(input(f"Enter 1 to update {ele} OR 0 to Skip"))
                 if choice == 1:
-                    update_emp_info_dict[ele]=input(f'Enter {ele} : ')
+                    if ele in ['name','joining_date','dob']:
+                        update_emp_info_dict[ele] = set_none(input(f'Enter {ele} : '))
+                    elif ele in ['years_of_experience','age']:
+                        update_emp_info_dict[ele] = convert_to_int(input(f'Enter {ele} in Numbers: '))
+                    elif ele in ['project_name','skill_set']:
+                        update_emp_info_dict[ele] = create_list(input(f'Enter {ele} seperated by , :  '))
+
                 else:
                     continue
             localdb.update(update_emp_info_dict)
+            print("\n Updated successfully \n")
+        elif n == 3:
+            find_empid = int(input("Enter Employess ID to get Details : "))
+            find_emp = Employee()
+            find_emp.set_by_emp_id(localdb, find_empid)
+            print(find_emp.get_details())
+        elif n == 4:
+            delete_empid = int(input("Enter Employess ID to delete  : "))
+            delete_emp = Employee()
+            delete_emp.set_by_emp_id(localdb, delete_empid)
+            print(delete_emp.get_details())
+            if int(input("Are you sure to delete , press 1 :")) == 1:
+                localdb.delete_emp(delete_empid)
+                print("\n Deleted Successfully !")
 
