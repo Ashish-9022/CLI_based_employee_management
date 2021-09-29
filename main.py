@@ -1,10 +1,12 @@
 import json
 
+
 def set_none(value):
     if value == "":
         return None
     else:
         return value
+
 
 def convert_to_int(value):
     if value == "":
@@ -12,12 +14,12 @@ def convert_to_int(value):
     else:
         return int(value)
 
+
 def create_list(value):
     if value == "":
         return []
     else:
         return value.split(",")
-
 
 
 class Employee:
@@ -43,18 +45,18 @@ class Employee:
 
     def get_details(self):
         return (f'\n Employee Details '
-              f'\n Employee ID :{self.emp_id} '
-              f'\n Employee Name : {self.name}'
-              f'\n Experiance : {self.experience}'
-              f'\n Date of joining : {self.date_of_joining}'
-              f'\n Date of Birth : {self.date_of_birth}'
-              f'\n Age : {self.age}'
-              f'\n Projects : {self.project_name}'
-              f'\n Skills : {self.skills}\n')
+                f'\n Employee ID :{self.emp_id} '
+                f'\n Employee Name : {self.name}'
+                f'\n Experiance : {self.experience}'
+                f'\n Date of joining : {self.date_of_joining}'
+                f'\n Date of Birth : {self.date_of_birth}'
+                f'\n Age : {self.age}'
+                f'\n Projects : {self.project_name}'
+                f'\n Skills : {self.skills}\n')
 
     def set_by_emp_id(self, db, emp_id):
         temp_dict = db.read_one(emp_id)
-        if temp_dict == False:
+        if not temp_dict:
             return False
         self.emp_id = emp_id
         self.name = temp_dict['name']
@@ -69,7 +71,7 @@ class Employee:
 
     def get_info_dict(self):
         self.info_dict['emp_id'] = self.emp_id
-        self.info_dict['user_type'] =self.__user_type
+        self.info_dict['user_type'] = self.__user_type
         self.info_dict['name'] = self.name
         self.info_dict['years_of_experience'] = self.experience
         self.info_dict['joining_date'] = self.date_of_joining
@@ -79,6 +81,7 @@ class Employee:
         self.info_dict['skill_set'] = self.skills
         return self.info_dict
 
+
 class Database:
     def __init__(self, filename):
         self.filename = filename
@@ -87,7 +90,7 @@ class Database:
         with open(self.filename, 'r') as f:
             data = json.load(f)
         dict_len = data['employees'][-1]['emp_id']
-        if dict_len == None:
+        if dict_len is None:
             dict_len = 1
         else:
             dict_len += 1
@@ -106,7 +109,7 @@ class Database:
         with open(self.filename, 'w') as f:
             json.dump(data, f, indent=3)
 
-    def update(self,update_emp_info_dict):
+    def update(self, update_emp_info_dict):
         with open(self.filename, 'r') as fr:
             data = json.load(fr)
         temp_list = []
@@ -115,8 +118,7 @@ class Database:
                 temp_list.append(update_emp_info_dict)
             else:
                 temp_list.append(emp)
-        temp_dict={}
-        temp_dict['employees']=temp_list
+        temp_dict = {'employees': temp_list}
         with open(self.filename, 'w') as fw:
             json.dump(temp_dict, fw, indent=3)
 
@@ -133,7 +135,7 @@ class Database:
         else:
             return data['employees'][emp_id]
 
-    def delete_emp(self,delete_emp_id):
+    def delete_emp(self, delete_emp_id):
         with open(self.filename, 'r') as fr:
             data = json.load(fr)
         temp_list = []
@@ -142,14 +144,13 @@ class Database:
                 pass
             else:
                 temp_list.append(emp)
-        temp_dict = {}
-        temp_dict['employees'] = temp_list
+        temp_dict = {'employees': temp_list}
         with open(self.filename, 'w') as fw:
             json.dump(temp_dict, fw, indent=3)
 
     def show_all(self):
         with open(self.filename, 'r') as fr:
-            data=json.load(fr)
+            data = json.load(fr)
         all_employees = []
         for emp in data['employees']:
             if emp['user_type'] == 'admin':
@@ -177,7 +178,7 @@ if __name__ == "__main__":
     while True:
         try:
             n = int(input(operations))
-        except:
+        except ValueError as error:
             continue
         if n == 0:
             exit()
@@ -195,8 +196,8 @@ if __name__ == "__main__":
         elif n == 2:
             update_empid = int(input("Enter Employess ID which has to be updated"))
             update_emp = Employee()
-            status = update_emp.set_by_emp_id(localdb,update_empid)
-            if status == False:
+            status = update_emp.set_by_emp_id(localdb, update_empid)
+            if not status:
                 print(f"Invalid Employee ID . Employee with {update_empid} does not exists")
                 continue
             print(update_emp.get_details())
@@ -206,10 +207,10 @@ if __name__ == "__main__":
                     continue
                 try:
                     choice = int(input(f"Enter 1 to update {ele} OR 0 to Skip"))
-                except:
+                except ValueError as error:
                     choice = 0
                 if choice == 1:
-                    if ele in ['name','joining_date', 'dob']:
+                    if ele in ['name', 'joining_date', 'dob']:
                         update_emp_info_dict[ele] = set_none(input(f'Enter {ele} : '))
                     elif ele in ['years_of_experience', 'age']:
                         update_emp_info_dict[ele] = convert_to_int(input(f'Enter {ele} in Numbers: '))
@@ -224,7 +225,7 @@ if __name__ == "__main__":
             find_empid = int(input("Enter Employess ID to get Details : "))
             find_emp = Employee()
             status1 = find_emp.set_by_emp_id(localdb, find_empid)
-            if status1 == False:
+            if not status1:
                 print(f"Invalid Employee ID . Employee with {find_empid} does not exists")
                 continue
             print(find_emp.get_details())
@@ -232,8 +233,8 @@ if __name__ == "__main__":
             delete_empid = int(input("Enter Employess ID to delete  : "))
             delete_emp = Employee()
             status2 = delete_emp.set_by_emp_id(localdb, delete_empid)
-            if status2 == False:
-                print(f"Invalid Employee ID . Employee with {update_empid} does not exists")
+            if not status2:
+                print(f"Invalid Employee ID . Employee with {delete_empid} does not exists")
                 continue
             print(delete_emp.get_details())
             if int(input("Are you sure to delete , press 1 :")) == 1:
@@ -245,4 +246,3 @@ if __name__ == "__main__":
             print("\n \t\t\t Emp ID \t\t\t Name ")
             for emp in all_employees:
                 print(f"\t\t\t\t {emp[0]} \t\t\t\t\t {emp[1]}")
-
