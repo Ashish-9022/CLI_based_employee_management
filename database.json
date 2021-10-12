@@ -5,7 +5,7 @@
          "name": "Bhojraj Bharambe",
          "user_type": "admin",
          "years_of_experience": 3,
-         "joining_date": "2021-09-10",
+         "joining_date": "2021-0 9-10",
          "dob": "2001-06-09",
          "age": 25,
          "project_name": [
@@ -49,8 +49,8 @@
       },
       {
          "emp_id": 4,
-         "name": "Ashvin",
          "user_type": "Employee",
+         "name": "Diraj",
          "years_of_experience": null,
          "joining_date": null,
          "dob": null,
@@ -68,6 +68,20 @@
          "age": null,
          "project_name": [],
          "skill_set": []
+      },
+      {
+         "emp_id": 6,
+         "name": "Dinesh",
+         "user_type": "Employee",
+         "years_of_experience": 8,
+         "joining_date": null,
+         "dob": null,
+         "age": null,
+         "project_name": [],
+         "skill_set": [
+            "Python",
+            "java"
+         ]
       }
    ]
 }
